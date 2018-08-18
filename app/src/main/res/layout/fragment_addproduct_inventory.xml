@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView2"
+        style="@style/FieldStyle"
+        android:text="@string/product_name"
+        app:layout_constraintBaseline_toBaselineOf="@+id/editProductName"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/editProductName"
+        style="@style/editTextStyle"
+        android:layout_marginTop="@dimen/paddingOrMar_L"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toEndOf="@+id/barrier"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView3"
+        style="@style/FieldStyle"
+        android:text="@string/sale_price"
+        app:layout_constraintBaseline_toBaselineOf="@+id/editPrice"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/editPrice"
+        style="@style/editTextStyle"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/barrier"
+        app:layout_constraintTop_toBottomOf="@+id/editProductName" />
+
+    <TextView
+        android:id="@+id/textView4"
+        style="@style/FieldStyle"
+        android:text="@string/in_stock_alone"
+        app:layout_constraintBaseline_toBaselineOf="@+id/editQuantity"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/editQuantity"
+        style="@style/editTextStyle"
+        android:inputType="number"
+        app:layout_constraintEnd_toStartOf="@id/meno"
+        app:layout_constraintStart_toEndOf="@+id/barrier"
+        app:layout_constraintTop_toBottomOf="@+id/editPrice"/>
+
+    <TextView
+    android:id="@+id/textView5"
+    style="@style/FieldStyle"
+    android:text="@string/supplier"
+    app:layout_constraintBottom_toBottomOf="@+id/editSupplierName"
+    app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/editSupplierName"
+        style="@style/editTextStyle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/barrier"
+        app:layout_constraintTop_toBottomOf="@+id/editQuantity" />
+
+    <TextView
+        android:id="@+id/textView6"
+        style="@style/FieldStyle"
+        android:text="@string/supplierPhone"
+        app:layout_constraintBottom_toBottomOf="@+id/editSupplierPhone"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/editSupplierPhone"
+        style="@style/editTextStyle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/barrier"
+        app:layout_constraintTop_toBottomOf="@+id/editSupplierName" />
+
+    <android.support.constraint.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="right"
+        app:constraint_referenced_ids="textView2,textView3,textView4,textView5,textView6"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="91dp" />
+
+    <Button
+        android:id="@+id/save_btn"
+        style="@style/buttonStyle"
+        android:text="@string/save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editSupplierPhone"
+        android:layout_marginTop="@dimen/paddingOrMar_L"/>
+
+    <Button
+        android:id="@+id/meno"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:text="@string/meno"
+        app:layout_constraintEnd_toEndOf="@id/editPrice"
+        app:layout_constraintBottom_toTopOf="@id/editSupplierName"
+        app:layout_constraintLeft_toRightOf="@+id/editQuantity"/>
+
+    <Button
+        android:id="@+id/piu"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:text="@string/piu"
+        app:layout_constraintStart_toStartOf="@id/meno"
+        app:layout_constraintBottom_toTopOf="@id/meno"/>
+
+</android.support.constraint.ConstraintLayout>
