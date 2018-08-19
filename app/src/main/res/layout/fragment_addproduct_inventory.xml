@@ -75,6 +75,7 @@
     <EditText
         android:id="@+id/editSupplierPhone"
         style="@style/editTextStyle"
+        android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/barrier"
         app:layout_constraintTop_toBottomOf="@+id/editSupplierName" />
@@ -95,7 +96,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editSupplierPhone"
-        android:layout_marginTop="@dimen/paddingOrMar_L"/>
+        android:layout_marginTop="@dimen/paddingOrMar_XXXL"/>
 
     <Button
         android:id="@+id/meno"
@@ -113,5 +114,14 @@
         android:text="@string/piu"
         app:layout_constraintStart_toStartOf="@id/meno"
         app:layout_constraintBottom_toTopOf="@id/meno"/>
+
+    <ImageButton
+        android:id="@+id/supplier_phone_btn"
+        android:layout_marginTop="@dimen/paddingOrMar_L"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/save_btn"
+        app:layout_constraintTop_toBottomOf="@id/editSupplierPhone"
+        app:srcCompat="@drawable/ic_contact_phone"
+        style="@style/PhoneButtonSupl_Client_Style" />
 
 </android.support.constraint.ConstraintLayout>

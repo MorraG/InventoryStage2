@@ -7,6 +7,7 @@ import android.support.v4.widget.CursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import java.text.NumberFormat;
 
@@ -37,6 +38,7 @@ public class ProductCursorAdapter extends CursorAdapter {
         ViewHolder holder = (ViewHolder) view.getTag();
         View container = view.findViewById(R.id.product_item_container);
 
+
         final String productName = cursor.getString(cursor.getColumnIndex(InventoryContract.ProductEntry.PRODUCT_NAME));
         int quantity = cursor.getInt(cursor.getColumnIndex(InventoryContract.ProductEntry.QUANTITY));
         float price = cursor.getFloat(cursor.getColumnIndex(InventoryContract.ProductEntry.PRICE));
@@ -62,11 +64,13 @@ public class ProductCursorAdapter extends CursorAdapter {
         final TextView productName_tv;
         final TextView price_tv;
         final TextView quantity_tv;
+//        Button sell_btn;
 
         ViewHolder(View view){
             this.productName_tv = view.findViewById(R.id.product_item_product_name);
             this.price_tv = view.findViewById(R.id.product_item_price);
             this.quantity_tv = view.findViewById(R.id.product_item_quantity);
+//            this.sell_btn = view.findViewById(R.id.sell);
         }
     }
     public interface ItemClickListener{

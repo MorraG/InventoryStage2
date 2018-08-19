@@ -2,6 +2,7 @@ package com.example.user.inventorystage2;
 
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -43,6 +44,7 @@ public class AddProductFragment extends Fragment implements View.OnClickListener
     private Button mButtonDash;
     private Button mButtonPlus;
     private Button save_product_btn;
+    private Button call_supl_btn;
 
     private int quantityAddProduct;
 
@@ -64,9 +66,11 @@ public class AddProductFragment extends Fragment implements View.OnClickListener
         save_product_btn = rootView.findViewById(R.id.save_btn);
         mButtonDash = rootView.findViewById(R.id.meno);
         mButtonPlus = rootView.findViewById(R.id.piu);
+        //call_supl_btn = rootView.findViewById(R.id.supplier_phone_btn);
 
         //Set click listeners on buttons
         save_product_btn.setOnClickListener(this);
+
 
         Bundle bundle = getArguments();
         String uriString = null;
@@ -106,6 +110,8 @@ public class AddProductFragment extends Fragment implements View.OnClickListener
 
             getActivity().setTitle(getString(R.string.add_product));
             getActivity().invalidateOptionsMenu();
+            //call_supl_btn.setVisibility(View.GONE);
+
             mButtonDash.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
 
@@ -219,15 +225,26 @@ public class AddProductFragment extends Fragment implements View.OnClickListener
             int quantity = cursor.getInt(quantityColumnIndex);
             float price = cursor.getFloat(priceColumnIndex);
             String supplierName = cursor.getString(supplierColumnIndex);
-            String suppliePhone = cursor.getString(supplierPhoneColumnIndex);
+            final String supplierPhone = cursor.getString(supplierPhoneColumnIndex);
 
             productName_et.setText(productName);
             price_et.setText(String.valueOf(price));
             quantity_et.setText(String.valueOf(quantity));
             suplName_et.setText(String.valueOf(supplierName));
-            suplPhone_et.setText(String.valueOf(supplierPhoneColumnIndex));
+            suplPhone_et.setText(String.valueOf(supplierPhone));
 
             quantityAddProduct = cursor.getInt(quantityColumnIndex);
+
+           /* call_supl_btn.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_DIAL);
+
+                    intent.setData(Uri.parse("tel:" + supplierPhone));
+                    if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+                        startActivity(intent);
+                    }
+                }
+            });*/
 
             mButtonDash.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
