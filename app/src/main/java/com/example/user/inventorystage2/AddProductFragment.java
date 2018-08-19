@@ -25,6 +25,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,7 +45,7 @@ public class AddProductFragment extends Fragment implements View.OnClickListener
     private Button mButtonDash;
     private Button mButtonPlus;
     private Button save_product_btn;
-    private Button call_supl_btn;
+    private ImageButton call_supl_btn;
 
     private int quantityAddProduct;
 
@@ -66,7 +67,7 @@ public class AddProductFragment extends Fragment implements View.OnClickListener
         save_product_btn = rootView.findViewById(R.id.save_btn);
         mButtonDash = rootView.findViewById(R.id.meno);
         mButtonPlus = rootView.findViewById(R.id.piu);
-        //call_supl_btn = rootView.findViewById(R.id.supplier_phone_btn);
+        call_supl_btn = rootView.findViewById(R.id.supplier_phone_btn);
 
         //Set click listeners on buttons
         save_product_btn.setOnClickListener(this);
@@ -110,7 +111,7 @@ public class AddProductFragment extends Fragment implements View.OnClickListener
 
             getActivity().setTitle(getString(R.string.add_product));
             getActivity().invalidateOptionsMenu();
-            //call_supl_btn.setVisibility(View.GONE);
+            call_supl_btn.setVisibility(View.GONE);
 
             mButtonDash.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -235,7 +236,7 @@ public class AddProductFragment extends Fragment implements View.OnClickListener
 
             quantityAddProduct = cursor.getInt(quantityColumnIndex);
 
-           /* call_supl_btn.setOnClickListener(new View.OnClickListener() {
+            call_supl_btn.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Intent intent = new Intent(Intent.ACTION_DIAL);
 
@@ -244,7 +245,7 @@ public class AddProductFragment extends Fragment implements View.OnClickListener
                         startActivity(intent);
                     }
                 }
-            });*/
+            });
 
             mButtonDash.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {

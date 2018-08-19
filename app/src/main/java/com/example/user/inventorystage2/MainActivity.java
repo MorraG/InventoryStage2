@@ -1,5 +1,7 @@
 package com.example.user.inventorystage2;
 
+import android.content.ContentValues;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,9 +14,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.example.user.inventorystage2.Data.InventoryContract;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private Uri mCurrentProductUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,4 +129,27 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    public void decrease( long id, int quantity){
+
+        if (quantity > 0) {
+            quantity = quantity - 1;
+            ContentValues values = new ContentValues();
+            values.put(InventoryContract.ProductEntry._ID,id);
+            values.put(InventoryContract.ProductEntry.QUANTITY,quantity);
+            getContentResolver().update(mCurrentProductUri, values, null, null);
+
+        }
+        else {
+            Toast.makeText(getActivity(), getString(R.string.quantity_cannot_be_negative), Toast.LENGTH_SHORT).show();
+        }
+    }
 }
+
+
+ /* int rowsAffected = getActivity().getContentResolver().update(values, null, null);
+            if (rowsAffected == 0) {
+                Toast.makeText(getActivity(), R.string.error_salling_product, Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getActivity(), getString(R.string.product_sell_successfully), Toast.LENGTH_SHORT).show();
+            }*/

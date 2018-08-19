@@ -79,6 +79,8 @@
     <string name="no_product_chosen">You didn\'t chose a product</string>
     <string name="product_saved_successfully">Product saved with row id:</string>
     <string name="error_saving_product">Error with saving product</string>
+    <string name="product_sell_successfully">Sell Complete and Product updated with row id:</string>
+    <string name="error_salling_product">Error with salling product</string>
     <string name="quantity_should_be_positive">Quantity should be a positive integer</string>
     <string name="price_should_be_number">Price should be a positive real number</string>
     <string name="Error_during_delete">Error during delete</string>

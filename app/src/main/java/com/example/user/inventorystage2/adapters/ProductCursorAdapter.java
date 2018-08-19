@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import java.text.NumberFormat;
 
+import com.example.user.inventorystage2.MainActivity;
 import com.example.user.inventorystage2.R;
 import com.example.user.inventorystage2.Data.InventoryContract;
 
@@ -33,19 +34,28 @@ public class ProductCursorAdapter extends CursorAdapter {
     }
 
     @Override
-    public void bindView(View view, Context context, Cursor cursor) {
+    public void bindView(View view, final Context context, final Cursor cursor) {
 
         ViewHolder holder = (ViewHolder) view.getTag();
-        View container = view.findViewById(R.id.product_item_container);
+        final View container = view.findViewById(R.id.product_item_container);
 
 
         final String productName = cursor.getString(cursor.getColumnIndex(InventoryContract.ProductEntry.PRODUCT_NAME));
-        int quantity = cursor.getInt(cursor.getColumnIndex(InventoryContract.ProductEntry.QUANTITY));
+        final int quantity = cursor.getInt(cursor.getColumnIndex(InventoryContract.ProductEntry.QUANTITY));
         float price = cursor.getFloat(cursor.getColumnIndex(InventoryContract.ProductEntry.PRICE));
+        final long id = cursor.getLong(cursor.getColumnIndex(InventoryContract.ProductEntry._ID));
 
         holder.productName_tv.setText(productName);
         holder.quantity_tv.setText(mContext.getString(R.string.in_stock, quantity));
         holder.price_tv.setText(NumberFormat.getCurrencyInstance().format(price));
+        holder.sell_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity mainActivity = (MainActivity) context;
+                mainActivity.decrease(id, quantity);
+            }
+        });
+
 
         final int position = cursor.getPosition();
                 container.setOnClickListener(new View.OnClickListener() {
@@ -64,13 +74,13 @@ public class ProductCursorAdapter extends CursorAdapter {
         final TextView productName_tv;
         final TextView price_tv;
         final TextView quantity_tv;
-//        Button sell_btn;
+        final Button sell_btn;
 
         ViewHolder(View view){
             this.productName_tv = view.findViewById(R.id.product_item_product_name);
             this.price_tv = view.findViewById(R.id.product_item_price);
             this.quantity_tv = view.findViewById(R.id.product_item_quantity);
-//            this.sell_btn = view.findViewById(R.id.sell);
+            this.sell_btn = view.findViewById(R.id.sell);
         }
     }
     public interface ItemClickListener{
