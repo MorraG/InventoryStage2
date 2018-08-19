@@ -46,7 +46,7 @@
     <Button
         android:id="@+id/sell"
         android:layout_marginEnd="8dp"
-        android:text="Sell"
+        android:text="@string/sell"
         style="@style/buttonStyle"
         app:layout_constraintBottom_toTopOf="@+id/product_item_container"
         app:layout_constraintEnd_toEndOf="@+id/product_item_container"

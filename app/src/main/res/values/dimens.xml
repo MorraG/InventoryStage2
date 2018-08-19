@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="hint_textsize">12sp</dimen>
     <dimen name="textSize_S">14sp</dimen>
     <dimen name="textSize_XS">18sp</dimen>
     <dimen name="textSize_M">24sp</dimen>

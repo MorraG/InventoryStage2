@@ -1,10 +1,10 @@
 package com.example.user.inventorystage2;
 
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,7 +21,6 @@ import com.example.user.inventorystage2.Data.InventoryContract;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private Uri mCurrentProductUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +60,7 @@ public class MainActivity extends AppCompatActivity
         if (savedInstanceState == null) {
             ProductListFragment productListFrag = new ProductListFragment();
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container,productListFrag)
+                    .add(R.id.container, productListFrag)
                     .addToBackStack(null)
                     .commit();
         }
@@ -94,7 +93,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            System.exit(0);
         }
 
         return super.onOptionsItemSelected(item);
@@ -130,26 +129,19 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public void decrease( long id, int quantity){
+    public void decrease(long id, int quantity) {
+        Uri currentProductUri =
+                ContentUris.withAppendedId(InventoryContract.ProductEntry.CONTENT_URI, id);
 
         if (quantity > 0) {
             quantity = quantity - 1;
             ContentValues values = new ContentValues();
-            values.put(InventoryContract.ProductEntry._ID,id);
-            values.put(InventoryContract.ProductEntry.QUANTITY,quantity);
-            getContentResolver().update(mCurrentProductUri, values, null, null);
+            values.put(InventoryContract.ProductEntry._ID, id);
+            values.put(InventoryContract.ProductEntry.QUANTITY, quantity);
+            getContentResolver().update(currentProductUri, values, null, null);
 
-        }
-        else {
-            Toast.makeText(getActivity(), getString(R.string.quantity_cannot_be_negative), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, getString(R.string.quantity_cannot_be_negative), Toast.LENGTH_SHORT).show();
         }
     }
 }
-
-
- /* int rowsAffected = getActivity().getContentResolver().update(values, null, null);
-            if (rowsAffected == 0) {
-                Toast.makeText(getActivity(), R.string.error_salling_product, Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(getActivity(), getString(R.string.product_sell_successfully), Toast.LENGTH_SHORT).show();
-            }*/

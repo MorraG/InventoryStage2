@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
 import java.text.NumberFormat;
 
 import com.example.user.inventorystage2.MainActivity;
@@ -58,32 +59,33 @@ public class ProductCursorAdapter extends CursorAdapter {
 
 
         final int position = cursor.getPosition();
-                container.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mCursor.moveToPosition(position);
-                        long id = mCursor.getLong(mCursor.getColumnIndex(InventoryContract.ProductEntry._ID));
-                        mCallback.onItemClicked(id);
+        container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCursor.moveToPosition(position);
+                long id = mCursor.getLong(mCursor.getColumnIndex(InventoryContract.ProductEntry._ID));
+                mCallback.onItemClicked(id);
             }
         });
 
     }
 
-    private class ViewHolder{
+    private class ViewHolder {
 
         final TextView productName_tv;
         final TextView price_tv;
         final TextView quantity_tv;
         final Button sell_btn;
 
-        ViewHolder(View view){
+        ViewHolder(View view) {
             this.productName_tv = view.findViewById(R.id.product_item_product_name);
             this.price_tv = view.findViewById(R.id.product_item_price);
             this.quantity_tv = view.findViewById(R.id.product_item_quantity);
             this.sell_btn = view.findViewById(R.id.sell);
         }
     }
-    public interface ItemClickListener{
+
+    public interface ItemClickListener {
         void onItemClicked(long id);
     }
 }

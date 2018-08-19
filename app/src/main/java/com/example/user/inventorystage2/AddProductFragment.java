@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.SyncStateContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -26,7 +25,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.user.inventorystage2.utils.Constants;
@@ -146,68 +144,68 @@ public class AddProductFragment extends Fragment implements View.OnClickListener
     }
 
     @Override
-        public void onPrepareOptionsMenu(Menu menu) {
-            super.onPrepareOptionsMenu(menu);
-            if (mCurrentProductUri == null) {
-                MenuItem menuItem = menu.findItem(R.id.action_delete);
-                menuItem.setVisible(false);
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        if (mCurrentProductUri == null) {
+            MenuItem menuItem = menu.findItem(R.id.action_delete);
+            menuItem.setVisible(false);
+        }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_with_delete, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_delete) {
+            openAlertDialogForDelete();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void openAlertDialogForDelete() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_DayNight_Dialog);
+        builder.setMessage("Do you want to delete this item from the database?");
+        builder.setPositiveButton("Yes, delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                deleteProduct();
+                getActivity().onBackPressed();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+
+            }
+        });
+        builder.create();
+        builder.show();
+    }
+
+    private void deleteProduct() {
+        if (mCurrentProductUri != null) {
+            int rowsDeleted = getActivity().getContentResolver().delete(mCurrentProductUri, null, null);
+            // Show a toast message depending on whether or not the delete was successful.
+            if (rowsDeleted == 0) {
+                // If no rows were deleted, then there was an error with the delete.
+                Toast.makeText(getActivity(), R.string.Error_during_delete,
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                // Otherwise, the delete was successful and we can display a toast.
+                Toast.makeText(getActivity(), R.string.Successful_deletingProd,
+                        Toast.LENGTH_SHORT).show();
             }
         }
-
-        @Override
-        public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-            super.onCreateOptionsMenu(menu, inflater);
-            inflater.inflate(R.menu.menu_with_delete, menu);
-        }
-
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            if (item.getItemId() == R.id.action_delete) {
-                openAlertDialogForDelete();
-            }
-            return super.onOptionsItemSelected(item);
-        }
-
-        private void openAlertDialogForDelete() {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_DayNight_Dialog);
-            builder.setMessage("Do you want to delete this item from the database?");
-            builder.setPositiveButton("Yes, delete", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    deleteProduct();
-                    getActivity().onBackPressed();
-                }
-            });
-            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-
-                }
-            });
-            builder.create();
-            builder.show();
-        }
-
-        private void deleteProduct() {
-            if (mCurrentProductUri != null) {
-                int rowsDeleted = getActivity().getContentResolver().delete(mCurrentProductUri, null, null);
-                // Show a toast message depending on whether or not the delete was successful.
-                if (rowsDeleted == 0) {
-                    // If no rows were deleted, then there was an error with the delete.
-                    Toast.makeText(getActivity(), R.string.Error_during_delete,
-                            Toast.LENGTH_SHORT).show();
-                } else {
-                    // Otherwise, the delete was successful and we can display a toast.
-                    Toast.makeText(getActivity(), R.string.Successful_deletingProd,
-                            Toast.LENGTH_SHORT).show();
-                }
-            }
-        }
+    }
 
 
-        @NonNull
+    @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int i, @Nullable Bundle bundle) {
-            return new CursorLoader(getActivity(), mCurrentProductUri, null, null, null, null);
+        return new CursorLoader(getActivity(), mCurrentProductUri, null, null, null, null);
     }
 
     @Override
